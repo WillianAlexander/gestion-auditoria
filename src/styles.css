@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+/* Aplicar fuente a toda la aplicación */
+@layer base {
+  html {
+    font-family: "Century Gothic", "Inter", sans-serif;
+  }
+}
+
+:root {
+  --color-primary: #3c3c3b; /* slate-800 */
+  --color-secondary: #606060; /* gray-600 */
+  --color-text: #606060; /* gray-600 */
+  --color-accent: #80b029; /* lime-500 */
+  --color-background-light: #f9f9f9; /* gray-50 */
+  --color-white: #ffffff; /* white */
+  --color-green-dark: #265e48; /* green-900 */
+  --color-gray-light: #e4e4e4; /* gray-200 */
+  --color-success: #1d8a39; /* green-700 */
+  --color-warning: #fcc200; /* yellow-400 */
+}
