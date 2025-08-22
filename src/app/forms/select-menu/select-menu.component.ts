@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SelectControlService } from '../../services/select-control.service';
+import { Subscription } from 'rxjs';
 
 interface SelectOption {
   value: string;
@@ -17,40 +19,70 @@ export class SelectMenuComponent implements OnInit, OnDestroy {
   @Input() options: SelectOption[] = [];
   @Input() label = 'Seleccionar';
   @Input() placeholder = 'Seleccione una opción';
+  @Input() selectId = ''; // ID único para cada select
   @Output() selectionChange = new EventEmitter<SelectOption>();
 
   isOpen = false;
   selectedOption?: SelectOption;
+  private subscription: Subscription = new Subscription();
 
-  // Detectar click fuera del componente
+  constructor(private selectControlService: SelectControlService) {
+    // Generar ID único si no se proporciona
+    if (!this.selectId) {
+      this.selectId = 'select-' + Math.random().toString(36).substr(2, 9);
+    }
+  }
+
   ngOnInit() {
+    // Suscribirse a cambios en el servicio
+    this.subscription.add(
+      this.selectControlService.openSelectId$.subscribe(openId => {
+        // Si otro select se abre, cerrar este
+        if (openId !== this.selectId) {
+          this.isOpen = false;
+        }
+      })
+    );
+
+    // Detectar click fuera del componente
     document.addEventListener('mousedown', this.handleClickOutside);
   }
 
   ngOnDestroy() {
+    this.subscription.unsubscribe();
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   handleClickOutside = (event: MouseEvent) => {
     const target = event.target as HTMLElement;
-    console.log(target);
-    const selectMenu = document.getElementById('select-menu-root');
+    const selectMenu = document.getElementById(this.selectId + '-root');
     if (this.isOpen && selectMenu && !selectMenu.contains(target)) {
       this.closeDropdown();
     }
   };
 
   toggleDropdown(): void {
-    this.isOpen = !this.isOpen;
+    if (this.isOpen) {
+      this.closeDropdown();
+    } else {
+      this.openDropdown();
+    }
+  }
+
+  openDropdown(): void {
+    // Notificar al servicio que este select se está abriendo
+    this.selectControlService.openSelect(this.selectId);
+    this.isOpen = true;
+  }
+
+  closeDropdown(): void {
+    this.isOpen = false;
+    this.selectControlService.closeSelect(this.selectId);
   }
 
   selectOption(option: SelectOption): void {
     this.selectedOption = option;
     this.selectionChange.emit(option);
-    this.isOpen = false;
-  }
-
-  closeDropdown(): void {
-    this.isOpen = false;
+    this.closeDropdown();
   }
 }
