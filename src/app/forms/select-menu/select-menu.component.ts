@@ -1,10 +1,4 @@
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface SelectOption {
@@ -18,9 +12,8 @@ interface SelectOption {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './select-menu.component.html',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SelectMenuComponent {
+export class SelectMenuComponent implements OnInit, OnDestroy {
   @Input() options: SelectOption[] = [];
   @Input() label = 'Seleccionar';
   @Input() placeholder = 'Seleccione una opción';
@@ -28,6 +21,24 @@ export class SelectMenuComponent {
 
   isOpen = false;
   selectedOption?: SelectOption;
+
+  // Detectar click fuera del componente
+  ngOnInit() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    console.log(target);
+    const selectMenu = document.getElementById('select-menu-root');
+    if (this.isOpen && selectMenu && !selectMenu.contains(target)) {
+      this.closeDropdown();
+    }
+  };
 
   toggleDropdown(): void {
     this.isOpen = !this.isOpen;

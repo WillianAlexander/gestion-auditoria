@@ -1,0 +1,23 @@
+<div class="flex h-screen bg-gray-100 dark:bg-gray-900">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 overflow-auto">
+    <!-- Header (opcional) -->
+    <header
+      class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700"
+    >
+      <div class="px-6 py-4">
+        <h1 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Sistema de Gestión de Auditoría
+        </h1>
+      </div>
+    </header>
+
+    <!-- Content Container -->
+    <div class="p-6">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

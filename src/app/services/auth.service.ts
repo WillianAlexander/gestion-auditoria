@@ -80,7 +80,7 @@ export class AuthService {
       );
 
       // Redirigir al dashboard
-      await this.router.navigate(['/dashboard']);
+      await this.router.navigate(['/observaciones']);
 
       return response.data;
     } catch (error) {
