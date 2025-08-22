@@ -23,15 +23,14 @@ export class ObservacionesComponent {
   ];
 
   planOptions: SelectOption[] = [
-    { value: 'plan1', label: 'Plan de Auditoría 2024' },
-    { value: 'plan2', label: 'Plan de Auditoría 2025' },
-    { value: 'plan3', label: 'Plan de Auditoría Especial' },
+    { value: '1', label: 'Si' },
+    { value: '0', label: 'No' },
   ];
 
   actividadOptions: SelectOption[] = [
-    { value: 'actividad1', label: 'Auditoría Financiera' },
-    { value: 'actividad2', label: 'Auditoría Operacional' },
-    { value: 'actividad3', label: 'Auditoría de Cumplimiento' },
+    { value: 'ACTAUD', label: 'Actividades de Auditor' },
+    { value: 'ACTCUMP', label: 'Actividades de Cumplimiento Normativo' },
+    { value: 'ACTSEPS', label: 'Actividades Priorizadas SEPS' },
   ];
 
   // Fecha actual del sistema en formato YYYY-MM-DD
