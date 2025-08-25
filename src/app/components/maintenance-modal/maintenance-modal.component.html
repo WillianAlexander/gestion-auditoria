@@ -1,0 +1,145 @@
+<div
+  *ngIf="isOpen | async"
+  class="fixed inset-0 flex items-center justify-center bg-black/50 z-50 px-16"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="Ingresar hallazgo"
+>
+  <div class="w-full rounded-lg bg-white p-6 shadow-lg">
+    <!-- Título -->
+    <h2 id="modalTitle" class="text-lg font-bold text-gray-900 mb-4">
+      Ingresar Registros
+    </h2>
+
+    <!-- Tabla con 5 columnas -->
+    <div class="">
+      <table class="w-full border border-gray-300 rounded-lg table-fixed">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="w-2/6 px-2 py-2 border text-sm">Observación</th>
+            <th class="w-2/3 px-2 py-2 border text-sm">Responsable/Área</th>
+            <th class="w-1/3 px-2 py-2 border text-sm">Impacto</th>
+            <th class="w-1/4 px-2 py-2 border text-sm">Probabilidad</th>
+            <th class="w-1/4 px-2 py-2 border text-sm">Nivel de riesgo</th>
+          </tr>
+        </thead>
+        <tbody id="table-group">
+          <!-- Fila 1 -->
+          <tr>
+            <td class="px-4 py-2 border border-gray-300">
+              <input
+                type="text"
+                class="w-full mt-2 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:bg-gray-50"
+                placeholder=""
+              />
+            </td>
+            <td class="px-4 py-2 border border-gray-300">
+              <app-select-menu
+                [options]="areas"
+                label=""
+                placeholder=""
+              ></app-select-menu>
+            </td>
+            <td class="px-4 py-2 border border-gray-300">
+              <app-select-menu
+                [options]="impacto"
+                label=""
+                placeholder=""
+              ></app-select-menu>
+            </td>
+            <td class="px-4 py-2 border border-gray-300">
+              <app-select-menu
+                [options]="probabilidad"
+                label=""
+                placeholder=""
+              ></app-select-menu>
+            </td>
+            <td class="px-4 py-2 border border-gray-300">
+              <app-select-menu
+                [options]="niveles"
+                label=""
+                placeholder=""
+              ></app-select-menu>
+            </td>
+          </tr>
+
+          <!-- Fila 2 -->
+          <tr>
+            <td class="px-4 py-2 border border-gray-300">
+              <input
+                type="text"
+                class="w-full mt-2 px-4 py-3 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:bg-gray-50"
+                placeholder=""
+              />
+            </td>
+            <td class="px-4 py-2 border border-gray-300">
+              <app-select-menu
+                [options]="areas"
+                label=""
+                placeholder=""
+              ></app-select-menu>
+            </td>
+            <td class="px-4 py-2 border border-gray-300">
+              <app-select-menu
+                [options]="impacto"
+                label=""
+                placeholder=""
+              ></app-select-menu>
+            </td>
+            <td class="px-4 py-2 border border-gray-300">
+              <app-select-menu
+                [options]="probabilidad"
+                label=""
+                placeholder=""
+              ></app-select-menu>
+            </td>
+            <td class="px-4 py-2 border border-gray-300">
+              <app-select-menu
+                [options]="niveles"
+                label=""
+                placeholder=""
+              ></app-select-menu>
+            </td>
+          </tr>
+
+          <!-- Puedes agregar más filas dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Botones -->
+    <div class="mt-4 flex justify-end space-x-2">
+      <button
+        type="button"
+        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-95"
+        (click)="agregarFila()"
+      >
+        <svg
+          class="w-5 h-5 mr-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+        Fila
+      </button>
+      <button
+        class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-95"
+        (click)="cerrar()"
+      >
+        Cancelar
+      </button>
+      <button
+        class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-95"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectMenuComponent } from '../../forms/select-menu/select-menu.component';
+import { ModalService } from '../../services/modal.service';
+import { MaintenanceModalComponent } from '../../components/maintenance-modal/maintenance-modal.component';
 
 interface SelectOption {
   value: string;
@@ -9,8 +11,7 @@ interface SelectOption {
 
 @Component({
   selector: 'app-observaciones',
-  standalone: true,
-  imports: [CommonModule, SelectMenuComponent],
+  imports: [CommonModule, SelectMenuComponent, MaintenanceModalComponent],
   templateUrl: './observaciones.component.html',
   styleUrl: './observaciones.component.css',
 })
@@ -46,6 +47,12 @@ export class ObservacionesComponent {
   isDragOverActa = false;
   informeFile: File | null = null;
   actaFile: File | null = null;
+
+  constructor(private modalService: ModalService) {}
+
+  abrirModal() {
+    this.modalService.abrir();
+  }
 
   // Métodos para los select
   onInformeChange(option: SelectOption) {
